@@ -1,5 +1,6 @@
 package co.com.sofka.luchotest.service;
 
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -36,5 +37,18 @@ public class CuentaService {
             throw new NoSuchElementException("Cuenta no encontrada con id: " + id);
         }
         cuentaRepository.deleteById(id);
+    }
+
+    public CuentaEntity updateCuentaSaldo(Long cuentaId, BigDecimal nuevoSaldo) {
+
+        if (!cuentaRepository.existsById(cuentaId)) {
+            throw new NoSuchElementException("Cuenta no encontrada con id: " + cuentaId);
+        }
+
+        var cuentaEntity = getCuentaById(cuentaId);
+
+        cuentaEntity.setSaldoInicial(nuevoSaldo);
+
+        return cuentaRepository.save(cuentaEntity);
     }
 }

@@ -10,9 +10,10 @@ import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 public interface MovimientoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "saldo", ignore = true)
+    @Mapping(target = "cuenta", ignore = true)
     @Mapping(target = "fecha", source = "dto.fecha")
     @Mapping(target = "tipoMovimiento", source = "dto.tipoMovimiento")
     @Mapping(target = "valor", source = "dto.valor")
-    @Mapping(target = "saldo", source = "dto.saldo")
     MovimientoEntity toEntity(MovimientoCreateDTO dto);
 }
