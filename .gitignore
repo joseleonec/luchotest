@@ -33,3 +33,5 @@ build/
 .vscode/
 .mvn/wrapper/
 db/postgres_data/
+
+*.env
