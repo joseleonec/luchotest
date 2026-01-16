@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 .mvn/wrapper/
+db/postgres_data/
