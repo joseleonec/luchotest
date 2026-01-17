@@ -1,7 +1,9 @@
 package co.com.sofka.luchotest.mapper;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import co.com.sofka.luchotest.dto.ClienteCreateDTO;
 import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
@@ -9,7 +11,6 @@ import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
 @Mapper(componentModel = "spring")
 public interface ClienteMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "nombre", source = "dto.nombre")
     @Mapping(target = "genero", source = "dto.genero")
     @Mapping(target = "edad", source = "dto.edad")
@@ -19,5 +20,6 @@ public interface ClienteMapper {
     @Mapping(target = "clienteId", source = "dto.clienteId")
     @Mapping(target = "contrasena", source = "dto.contrasena")
     @Mapping(target = "estado", source = "dto.estado")
+    @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     ClienteEntity toEntity(ClienteCreateDTO dto);
 }

@@ -1,6 +1,8 @@
 package co.com.sofka.luchotest.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -59,5 +61,10 @@ public class MovimientoService {
             throw new NoSuchElementException("Movimiento no encontrado con id: " + id);
         }
         movimientoRepository.deleteById(id);
+    }
+
+    public List<MovimientoEntity> getMovimientosByCuentaId(Long cuentaId, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+
+        return movimientoRepository.findByCuentaIdAndFechaBetween(cuentaId, fechaInicio, fechaFin);
     }
 }

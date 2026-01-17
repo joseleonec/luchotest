@@ -1,6 +1,7 @@
 package co.com.sofka.luchotest.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -51,4 +52,13 @@ public class CuentaService {
 
         return cuentaRepository.save(cuentaEntity);
     }
+
+    public List<CuentaEntity> getCuentasByClienteId(Long clienteId) {
+        if (clienteId == null) {
+            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
+        }
+
+        return cuentaRepository.findByClienteId(clienteId);
+    }
+
 }

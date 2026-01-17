@@ -12,12 +12,11 @@ import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 @Mapper(componentModel = "spring")
 public interface MovimientoMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "saldo", ignore = true)
     @Mapping(target = "cuenta.id", source = "dto.cuentaId")
     @Mapping(target = "fecha", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "tipoMovimiento", source = "dto.tipoMovimiento")
     @Mapping(target = "valor", source = "dto.valor")
+    @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     MovimientoEntity toEntity(MovimientoCreateDTO dto);
 
     @Mapping(target = "cuentaId", source = "entity.cuenta.id")
