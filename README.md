@@ -356,16 +356,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ```bash
 # Build the image (includes running tests)
-docker build -t luchotest-app .
+docker build -t joseleon97/sofkabacktest .
 
 # Build with specific tag
-docker build -t luchotest-app:latest .
+docker build -t joseleon97/sofkabacktest:latest .
 
 # Build with version tag
-docker build -t luchotest-app:0.0.1-SNAPSHOT .
+docker build -t joseleon97/sofkabacktest:0.0.1-SNAPSHOT .
 
 # Build without cache (clean build)
-docker build --no-cache -t luchotest-app .
+docker build --no-cache -t joseleon97/sofkabacktest .
 ```
 
 ### **Run the Built Image**
@@ -378,7 +378,7 @@ docker run -p 8080:8080 \
   -e SPRING_DATASOURCE_PASSWORD=postgres \
   -e SPRING_SECURITY_USER_NAME=admin \
   -e SPRING_SECURITY_USER_PASSWORD=admin \
-  luchotest-app
+  joseleon97/sofkabacktest
 ```
 
 #### Windows CMD
@@ -390,10 +390,10 @@ docker run -p 8080:8080 ^
   -e SPRING_DATASOURCE_PASSWORD=postgres ^
   -e SPRING_SECURITY_USER_NAME=admin ^
   -e SPRING_SECURITY_USER_PASSWORD=admin ^
-  luchotest-app
+  joseleon97/sofkabacktest
 ```
 
 #### Single Line (All Platforms)
 ```bash
-docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/luchotestdb -e SPRING_DATASOURCE_USERNAME=postgres -e SPRING_DATASOURCE_PASSWORD=postgres -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin luchotest-app
+docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/sofkabacktest
 ```
