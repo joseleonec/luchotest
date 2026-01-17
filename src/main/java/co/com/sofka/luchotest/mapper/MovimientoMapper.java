@@ -15,11 +15,11 @@ public interface MovimientoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "saldo", ignore = true)
     @Mapping(target = "cuenta.id", source = "dto.cuentaId")
-    @Mapping(target = "fecha", source = "dto.fecha")
+    @Mapping(target = "fecha", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "tipoMovimiento", source = "dto.tipoMovimiento")
     @Mapping(target = "valor", source = "dto.valor")
     MovimientoEntity toEntity(MovimientoCreateDTO dto);
-    
+
     @Mapping(target = "cuentaId", source = "entity.cuenta.id")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     MovimientoDTO toDTO(MovimientoEntity entity);

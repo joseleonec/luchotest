@@ -1,10 +1,12 @@
 package co.com.sofka.luchotest.service;
 
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.sofka.luchotest.exceptions.SaldoInsuficienteException;
 import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 import co.com.sofka.luchotest.persistence.repositroy.MovimientoRepository;
 import lombok.AllArgsConstructor;
@@ -24,12 +26,20 @@ public class MovimientoService {
 
         var saldoActual = cuentaService.getCuentaById(cuentaId).getSaldoInicial();
 
-        var nuevoSaldo = saldoActual.add(movimientoEntity.getValor());
+        var valorMovimiento = movimientoEntity.getValor();
+
+        var difference = saldoActual.add(valorMovimiento);
+
+        if (difference.compareTo(BigDecimal.ZERO) < 0) {
+            throw new SaldoInsuficienteException("Saldo insuficiente");
+        }
+
+        var nuevoSaldo = difference;
 
         cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
 
         movimientoEntity.setSaldo(nuevoSaldo);
-        
+
         return movimientoRepository.save(movimientoEntity);
     }
 

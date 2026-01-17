@@ -1,7 +1,6 @@
 package co.com.sofka.luchotest.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -9,9 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record MovimientoCreateDTO(
     
-    @NotNull
-    LocalDateTime fecha,
-
     @NotBlank
     String tipoMovimiento,
 
