@@ -1,4 +1,4 @@
-package co.com.sofka.luchotest.config;
+package co.com.sofka.luchotest.exceptions;
 
 public class ResourceAlreadyExistsException extends RuntimeException {
 
