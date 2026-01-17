@@ -48,7 +48,7 @@ docker-compose logs -f app
 
 ```bash
 # Build the Docker image
-docker build -t luchotest-app .
+docker build -t joseleon97/sofkabacktest .
 
 # Run the container (requires external PostgreSQL)
 docker run -p 8080:8080 \
@@ -57,7 +57,7 @@ docker run -p 8080:8080 \
   -e SPRING_DATASOURCE_PASSWORD=your-password \
   -e SPRING_SECURITY_USER_NAME=admin \
   -e SPRING_SECURITY_USER_PASSWORD=admin123 \
-  luchotest-app
+  joseleon97/sofkabacktest
 ```
 
 ### Environment Variables
