@@ -1,9 +1,9 @@
-package co.com.sofka.luchotest.controller.mapper;
+package co.com.sofka.luchotest.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import co.com.sofka.luchotest.controller.dto.CuentaCreateDTO;
+import co.com.sofka.luchotest.dto.CuentaCreateDTO;
 import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
 
 @Mapper(componentModel = "spring")

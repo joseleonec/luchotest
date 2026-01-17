@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import co.com.sofka.luchotest.controller.dto.ApiErrorResponse;
+import co.com.sofka.luchotest.dto.ApiErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 

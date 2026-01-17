@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.sofka.luchotest.controller.dto.CuentaCreateDTO;
-import co.com.sofka.luchotest.controller.mapper.CuentaMapper;
+import co.com.sofka.luchotest.dto.CuentaCreateDTO;
+import co.com.sofka.luchotest.mapper.CuentaMapper;
 import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
 import co.com.sofka.luchotest.service.CuentaService;
 import jakarta.validation.Valid;

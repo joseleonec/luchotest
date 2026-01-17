@@ -1,4 +1,4 @@
-package co.com.sofka.luchotest.controller.dto;
+package co.com.sofka.luchotest.dto;
 
 import java.time.LocalDateTime;
 
