@@ -10,4 +10,6 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
     Optional<ClienteEntity> findByClienteId(String clienteId);
 
+    boolean existsByClienteId(String clienteId);
+
 }

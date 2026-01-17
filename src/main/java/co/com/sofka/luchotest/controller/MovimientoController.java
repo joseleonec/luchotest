@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.sofka.luchotest.controller.dto.MovimientoCreateDTO;
-import co.com.sofka.luchotest.controller.mapper.MovimientoMapper;
-import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
+import co.com.sofka.luchotest.dto.MovimientoCreateDTO;
+import co.com.sofka.luchotest.dto.MovimientoDTO;
+import co.com.sofka.luchotest.mapper.MovimientoMapper;
 import co.com.sofka.luchotest.service.MovimientoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,36 +27,45 @@ public class MovimientoController {
     private final MovimientoService movimientoService;
 
     @PostMapping
-    public ResponseEntity<MovimientoEntity> crearMovimiento(@Valid @RequestBody MovimientoCreateDTO movimiento) {
+    public ResponseEntity<MovimientoDTO> crearMovimiento(@Valid @RequestBody MovimientoCreateDTO movimiento) {
 
-        MovimientoEntity movimientoEntity = movimientoMapper.toEntity(movimiento);
+        var movimientoEntity = movimientoMapper.toEntity(movimiento);
 
-        MovimientoEntity movimientoCreado = movimientoService.crearMovimiento(movimientoEntity);
+        var movimientoCreado = movimientoService.crearMovimiento(movimientoEntity);
 
-        return ResponseEntity.ok(movimientoCreado);
+        var movimientoDTO = movimientoMapper.toDTO(movimientoCreado);
 
+        return ResponseEntity.ok(movimientoDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovimientoEntity> obtenerMovimientoPorId(@PathVariable Long id) {
-        MovimientoEntity movimientoEntity = movimientoService.getMovimientoById(id);
-        return ResponseEntity.ok(movimientoEntity);
+    public ResponseEntity<MovimientoDTO> obtenerMovimientoPorId(@PathVariable Long id) {
+
+        var movimientoEntity = movimientoService.getMovimientoById(id);
+
+        var movimientoDTO = movimientoMapper.toDTO(movimientoEntity);
+
+        return ResponseEntity.ok(movimientoDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovimientoEntity> actualizarMovimiento(@PathVariable Long id, @Valid @RequestBody MovimientoCreateDTO movimiento) {
+    public ResponseEntity<MovimientoDTO> actualizarMovimiento(@PathVariable Long id, @Valid @RequestBody MovimientoCreateDTO movimiento) {
 
-        MovimientoEntity movimientoActualizado = movimientoMapper.toEntity(movimiento);
+        var movimientoActualizado = movimientoMapper.toEntity(movimiento);
         movimientoActualizado.setId(id);
 
-        MovimientoEntity movimientoGuardado = movimientoService.updateMovimiento(movimientoActualizado);
+        var movimientoGuardado = movimientoService.updateMovimiento(movimientoActualizado);
 
-        return ResponseEntity.ok(movimientoGuardado);
+        var movimientoDTO = movimientoMapper.toDTO(movimientoGuardado);
+
+        return ResponseEntity.ok(movimientoDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarMovimiento(@PathVariable Long id) {
+
         movimientoService.deleteMovimiento(id);
+
         return ResponseEntity.noContent().build();
     }
 

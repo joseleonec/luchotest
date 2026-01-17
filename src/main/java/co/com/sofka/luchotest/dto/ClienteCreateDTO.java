@@ -1,4 +1,4 @@
-package co.com.sofka.luchotest.controller.dto;
+package co.com.sofka.luchotest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

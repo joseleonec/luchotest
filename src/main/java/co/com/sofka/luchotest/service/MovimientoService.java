@@ -1,9 +1,14 @@
 package co.com.sofka.luchotest.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import co.com.sofka.luchotest.exceptions.SaldoInsuficienteException;
 import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 import co.com.sofka.luchotest.persistence.repositroy.MovimientoRepository;
 import lombok.AllArgsConstructor;
@@ -14,7 +19,30 @@ public class MovimientoService {
 
     private final MovimientoRepository movimientoRepository;
 
+    private final CuentaService cuentaService;
+
+    @Transactional
     public MovimientoEntity crearMovimiento(MovimientoEntity movimientoEntity) {
+
+        var cuentaId = movimientoEntity.getCuenta().getId();
+
+        var cuentaActual = cuentaService.getCuentaById(cuentaId);
+        var saldoAnterior = cuentaActual.getSaldoDisponible();
+
+        var valorMovimiento = movimientoEntity.getValor();
+
+        var nuevoSaldo = saldoAnterior.add(valorMovimiento);
+
+        if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
+            throw new SaldoInsuficienteException("Saldo insuficiente");
+        }
+
+        movimientoEntity.setSaldoInicial(saldoAnterior);
+        
+        movimientoEntity.setSaldo(nuevoSaldo);
+
+        cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
+
         return movimientoRepository.save(movimientoEntity);
     }
 
@@ -36,5 +64,10 @@ public class MovimientoService {
             throw new NoSuchElementException("Movimiento no encontrado con id: " + id);
         }
         movimientoRepository.deleteById(id);
+    }
+
+    public List<MovimientoEntity> getMovimientosByCuentaId(Long cuentaId, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+
+        return movimientoRepository.findByCuentaIdAndFechaBetween(cuentaId, fechaInicio, fechaFin);
     }
 }

@@ -1,6 +1,5 @@
 package co.com.sofka.luchotest.config;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -14,13 +13,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import co.com.sofka.luchotest.controller.dto.ApiErrorResponse;
+import co.com.sofka.luchotest.dto.ApiErrorResponse;
+import co.com.sofka.luchotest.exceptions.ResourceAlreadyExistsException;
+import co.com.sofka.luchotest.exceptions.SaldoInsuficienteException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class RestExceptionHandler {
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,
@@ -44,7 +44,6 @@ public class RestExceptionHandler {
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiErrorResponse> handleConstraintViolationException(ConstraintViolationException ex,
@@ -144,6 +143,18 @@ public class RestExceptionHandler {
                 .path(request.getDescription(false).replace("uri=", ""))
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SaldoInsuficienteException.class)
+    public ResponseEntity<ApiErrorResponse> handleNoSuchElementException(SaldoInsuficienteException ex,
+            WebRequest request) {
+        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+                .message(CustomErrorMessages.ILLEGAL_STATE)
+                .detail(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND)
+                .path(request.getDescription(false).replace("uri=", ""))
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

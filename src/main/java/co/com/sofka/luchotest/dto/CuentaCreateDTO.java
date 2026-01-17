@@ -1,8 +1,9 @@
-package co.com.sofka.luchotest.controller.dto;
+package co.com.sofka.luchotest.dto;
 
 import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 public record CuentaCreateDTO(
@@ -17,6 +18,9 @@ public record CuentaCreateDTO(
     String estado,
 
     @PositiveOrZero
-    BigDecimal saldoInicial
+    BigDecimal saldoInicial,
+
+    @NotNull
+    Long clienteId
 
 ) {}
