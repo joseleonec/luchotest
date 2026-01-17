@@ -34,19 +34,20 @@ luchotest/
 │   │   │   ├── config/         # Security & Global configs
 │   │   │   ├── controller/     # API Endpoints
 │   │   │   ├── dto/            # Data Transfer Objects
-│   │   │   ├── entity/         # Database Entities
 │   │   │   ├── exceptions/     # Custom Exceptions
 │   │   │   ├── mapper/         # DTO-Entity Mappers
-│   │   │   ├── repository/     # JPA Repositories
+│   │   │   ├── persistence/    # Persistence Layer
+│   │   │   │   ├── entity/     # Database Entities
+│   │   │   │   └── repository/ # JPA Repositories
 │   │   │   └── service/        # Business Logic
 │   │   └── resources/
 │   │       ├── db/             # Database initialization scripts
 │   │       ├── application.properties
-│   │       └── luchotest-sofka.postman_collection.json
+│   │       └── application-prod.properties
 ├── db/                         # Database specific configurations
 │   ├── BaseDatos.sql
 │   └── docker-compose.yml
-├── Dockerfile
+├── Dockerfile                  # Application Dockerfile
 ├── docker-compose.yml          # Main composition file
 └── pom.xml
 ```
