@@ -28,13 +28,11 @@ public class MovimientoService {
 
         var valorMovimiento = movimientoEntity.getValor();
 
-        var difference = saldoActual.add(valorMovimiento);
+        var nuevoSaldo = saldoActual.add(valorMovimiento);
 
-        if (difference.compareTo(BigDecimal.ZERO) < 0) {
+        if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
-
-        var nuevoSaldo = difference;
 
         cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
 
