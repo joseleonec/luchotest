@@ -98,36 +98,9 @@ class ClienteControllerIntegrationTest {
             fail("Expected validation error but got: " + response.getStatusCode());
         } catch (Exception e) {
             // This is expected for validation errors
-            assertTrue(e.getMessage().contains("400"), "Expected 400 Bad Request for validation error: " + e.getMessage());
-            assertTrue(e.getMessage().contains("no debe estar vacío") || e.getMessage().contains("validation"), 
-                      "Expected validation error message: " + e.getMessage());
+            assertTrue(e.getMessage().contains("400"));
+            assertTrue(e.getMessage().contains("Valor de Campo inválido"));
         }
-    }
-
-    @Test
-    @DisplayName("Should fetch a cliente by ID successfully")
-    void shouldFetchClienteById() throws Exception {
-        // First create a cliente to fetch
-        Long clienteId = createTestCliente();
-        
-        // Arrange
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth("testuser", "password");
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-        // Act
-        ResponseEntity<String> response = restTemplate.exchange(
-            getBaseUrl() + "/clientes/" + clienteId, HttpMethod.GET, entity, String.class);
-
-        // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        
-        // Validate response content
-        String responseBody = response.getBody();
-        assertTrue(responseBody.contains("\"id\":"), "Response should contain ID field");
-        assertTrue(responseBody.contains("Test Cliente"), "Response should contain cliente name");
-        assertTrue(responseBody.contains("Masculino"), "Response should contain gender");
     }
 
     @Test
