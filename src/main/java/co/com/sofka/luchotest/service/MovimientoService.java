@@ -26,19 +26,22 @@ public class MovimientoService {
 
         var cuentaId = movimientoEntity.getCuenta().getId();
 
-        var saldoActual = cuentaService.getCuentaById(cuentaId).getSaldoInicial();
+        var cuentaActual = cuentaService.getCuentaById(cuentaId);
+        var saldoAnterior = cuentaActual.getSaldoDisponible();
 
         var valorMovimiento = movimientoEntity.getValor();
 
-        var nuevoSaldo = saldoActual.add(valorMovimiento);
+        var nuevoSaldo = saldoAnterior.add(valorMovimiento);
 
         if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
 
-        cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
-
+        movimientoEntity.setSaldoInicial(saldoAnterior);
+        
         movimientoEntity.setSaldo(nuevoSaldo);
+
+        cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
 
         return movimientoRepository.save(movimientoEntity);
     }

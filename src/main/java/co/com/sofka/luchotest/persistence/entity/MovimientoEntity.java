@@ -31,6 +31,9 @@ public class MovimientoEntity {
     @Column(nullable = false)
     private BigDecimal valor;
 
+    @Column(name = "saldo_inicial", nullable = false)
+    private BigDecimal saldoInicial;
+
     @PositiveOrZero
     @Column(nullable = false)
     private BigDecimal saldo;

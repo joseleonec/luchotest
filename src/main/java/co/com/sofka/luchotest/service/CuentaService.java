@@ -17,6 +17,10 @@ public class CuentaService {
     private final CuentaRepository cuentaRepository;
 
     public CuentaEntity crearCuenta(CuentaEntity cuentaEntity) {
+        // Inicializar saldo disponible igual al saldo inicial si no está establecido
+        if (cuentaEntity.getSaldoDisponible() == null) {
+            cuentaEntity.setSaldoDisponible(cuentaEntity.getSaldoInicial());
+        }
         return cuentaRepository.save(cuentaEntity);
     }
 
@@ -40,7 +44,7 @@ public class CuentaService {
         cuentaRepository.deleteById(id);
     }
 
-    public CuentaEntity updateCuentaSaldo(Long cuentaId, BigDecimal nuevoSaldo) {
+    public CuentaEntity updateCuentaSaldo(Long cuentaId, BigDecimal nuevoSaldoDisponible) {
 
         if (!cuentaRepository.existsById(cuentaId)) {
             throw new NoSuchElementException("Cuenta no encontrada con id: " + cuentaId);
@@ -48,7 +52,8 @@ public class CuentaService {
 
         var cuentaEntity = getCuentaById(cuentaId);
 
-        cuentaEntity.setSaldoInicial(nuevoSaldo);
+        // Solo actualizar el saldo disponible, mantener el saldo inicial
+        cuentaEntity.setSaldoDisponible(nuevoSaldoDisponible);
 
         return cuentaRepository.save(cuentaEntity);
     }

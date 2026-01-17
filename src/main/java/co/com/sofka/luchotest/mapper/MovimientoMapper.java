@@ -20,6 +20,12 @@ public interface MovimientoMapper {
     MovimientoEntity toEntity(MovimientoCreateDTO dto);
 
     @Mapping(target = "cuentaId", source = "entity.cuenta.id")
+    @Mapping(target = "id", source = "entity.id")
+    @Mapping(target = "fecha", source = "entity.fecha")
+    @Mapping(target = "tipoMovimiento", source = "entity.tipoMovimiento")
+    @Mapping(target = "valor", source = "entity.valor")
+    @Mapping(target = "saldoInicial", source = "entity.saldoInicial")
+    @Mapping(target = "saldo", source = "entity.saldo")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     MovimientoDTO toDTO(MovimientoEntity entity);
 

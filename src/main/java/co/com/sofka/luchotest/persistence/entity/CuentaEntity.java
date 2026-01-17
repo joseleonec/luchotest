@@ -30,6 +30,9 @@ public class CuentaEntity {
     @Column(name = "saldo_inicial", nullable = false)
     private BigDecimal saldoInicial;
 
+    @Column(name = "saldo_disponible", nullable = false)
+    private BigDecimal saldoDisponible;
+
     @Column(name = "estado", nullable = false)
     private String estado;
 
