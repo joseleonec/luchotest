@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.sofka.luchotest.dto.CuentaCreateDTO;
+import co.com.sofka.luchotest.dto.CuentaDTO;
 import co.com.sofka.luchotest.mapper.CuentaMapper;
-import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
 import co.com.sofka.luchotest.service.CuentaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,36 +27,45 @@ public class CuentaController {
     private final CuentaService cuentaService;
 
     @PostMapping
-    public ResponseEntity<CuentaEntity> crearCuenta(@Valid @RequestBody CuentaCreateDTO cuenta) {
+    public ResponseEntity<CuentaDTO> crearCuenta(@Valid @RequestBody CuentaCreateDTO cuenta) {
 
-        CuentaEntity cuentaEntity = cuentaMapper.toEntity(cuenta);
+        var cuentaEntity = cuentaMapper.toEntity(cuenta);
 
-        CuentaEntity cuentaCreada = cuentaService.crearCuenta(cuentaEntity);
+        var cuentaCreada = cuentaService.crearCuenta(cuentaEntity);
 
-        return ResponseEntity.ok(cuentaCreada);
+        var cuentaDTO = cuentaMapper.toDTO(cuentaCreada);
 
+        return ResponseEntity.ok(cuentaDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CuentaEntity> obtenerCuentaPorId(@PathVariable Long id) {
-        CuentaEntity cuentaEntity = cuentaService.getCuentaById(id);
-        return ResponseEntity.ok(cuentaEntity);
+    public ResponseEntity<CuentaDTO> obtenerCuentaPorId(@PathVariable Long id) {
+
+        var cuentaEntity = cuentaService.getCuentaById(id);
+
+        var cuentaDTO = cuentaMapper.toDTO(cuentaEntity);
+
+        return ResponseEntity.ok(cuentaDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CuentaEntity> actualizarCuenta(@PathVariable Long id, @Valid @RequestBody CuentaCreateDTO cuenta) {
+    public ResponseEntity<CuentaDTO> actualizarCuenta(@PathVariable Long id, @Valid @RequestBody CuentaCreateDTO cuenta) {
 
-        CuentaEntity cuentaActualizada = cuentaMapper.toEntity(cuenta);
+        var cuentaActualizada = cuentaMapper.toEntity(cuenta);
         cuentaActualizada.setId(id);
 
-        CuentaEntity cuentaGuardada = cuentaService.updateCuenta(cuentaActualizada);
+        var cuentaGuardada = cuentaService.updateCuenta(cuentaActualizada);
 
-        return ResponseEntity.ok(cuentaGuardada);
+        var cuentaDTO = cuentaMapper.toDTO(cuentaGuardada);
+
+        return ResponseEntity.ok(cuentaDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCuenta(@PathVariable Long id) {
+
         cuentaService.deleteCuenta(id);
+
         return ResponseEntity.noContent().build();
     }
 
