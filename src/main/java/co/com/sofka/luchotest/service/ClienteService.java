@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
+import co.com.sofka.luchotest.exceptions.ResourceAlreadyExistsException;
 import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
 import co.com.sofka.luchotest.persistence.repositroy.ClienteRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,11 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
 
     public ClienteEntity crearCliente(ClienteEntity clienteEntity) {
+
+        if (clienteRepository.existsByClienteId(clienteEntity.getClienteId())) {
+            throw new ResourceAlreadyExistsException("Cliente ya existe con clienteId: " + clienteEntity.getClienteId());
+        }
+
         return clienteRepository.save(clienteEntity);
     }
 
