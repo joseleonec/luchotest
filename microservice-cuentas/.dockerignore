@@ -1,0 +1,43 @@
+# Exclude files and directories that shouldn't be copied to Docker context
+.git
+.gitignore
+README.md
+HELP.md
+.env
+.env.local
+.env.production
+.env.staging
+
+# IDE specific files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Build outputs that will be generated inside container
+target/
+*.jar
+*.war
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Database files (if any local database files exist)
+*.db
+*.sqlite
+db/postgres_data/
+
+# Docker related files (avoid recursive copying)
+Dockerfile*
+docker-compose*.yml
+
+# Maven wrapper jar (we copy it explicitly)
+!.mvn/wrapper/maven-wrapper.jar
+
+# Test related
+test-output/
