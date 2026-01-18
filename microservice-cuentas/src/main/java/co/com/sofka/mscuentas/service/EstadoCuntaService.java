@@ -10,6 +10,7 @@ import co.com.sofka.mscuentas.dto.EstadoCuentaDTO;
 import co.com.sofka.mscuentas.mapper.CuentaMapper;
 import co.com.sofka.mscuentas.mapper.MovimientoMapper;
 import co.com.sofka.mscuentas.persistence.entity.CuentaEntity;
+import co.com.sofka.mscuentas.service.interfaces.IClienteService;
 import co.com.sofka.mscuentas.service.interfaces.ICuentaService;
 import co.com.sofka.mscuentas.service.interfaces.IEstadoCuentaService;
 import co.com.sofka.mscuentas.service.interfaces.IMovimientoService;
@@ -23,9 +24,12 @@ public class EstadoCuntaService implements IEstadoCuentaService {
     private final IMovimientoService movimientoService;
     private final CuentaMapper cuentaMapper;
     private final MovimientoMapper movimientoMapper;
+    private final IClienteService clienteService;
 
     @Override
     public List<EstadoCuentaDTO> generarEstadoCuenta(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin) {
+
+        var nombreCliente = clienteService.obtenerNombreClientePorId(clienteId);
 
         List<CuentaEntity> cuentasCliente = cuentaService.getCuentasByClienteId(clienteId);
         var estadosCuentaDTO = new ArrayList<EstadoCuentaDTO>();
@@ -36,7 +40,7 @@ public class EstadoCuntaService implements IEstadoCuentaService {
             var fechaFinDateTime = fechaFin.atTime(23, 59, 59);
 
             var estadoCuentaDTO = new EstadoCuentaDTO();
-            var cuentaDTO = cuentaMapper.toReporteDTO(cuenta);
+            var cuentaDTO = cuentaMapper.toReporteDTO(cuenta, nombreCliente);
             estadoCuentaDTO.setCuenta(cuentaDTO);
 
             var movimientos = movimientoService.getMovimientosByCuentaId(

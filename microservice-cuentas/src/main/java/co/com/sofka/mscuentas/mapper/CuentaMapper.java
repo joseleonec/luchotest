@@ -26,7 +26,7 @@ public interface CuentaMapper {
     @Mapping(target = "estado", source = "entity.estado")
     @Mapping(target = "saldoDisponible", source = "entity.saldoDisponible")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-    CuentaReporteDTO toReporteDTO(CuentaEntity entity);
+    CuentaReporteDTO toReporteDTO(CuentaEntity entity, String nombreCliente);
 
     @Mapping(target = "clienteId", source = "entity.clienteId")
     CuentaDTO toDTO(CuentaEntity entity);

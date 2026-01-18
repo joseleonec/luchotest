@@ -13,6 +13,8 @@ public record CuentaReporteDTO(
     
     BigDecimal saldoDisponible,
 
-    String estado
+    String estado,
+
+    String nombreCliente
 
 ) {}
