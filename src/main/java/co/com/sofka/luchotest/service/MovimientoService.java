@@ -12,16 +12,19 @@ import co.com.sofka.luchotest.dto.enums.TipoMovimientoEnum;
 import co.com.sofka.luchotest.exceptions.SaldoInsuficienteException;
 import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 import co.com.sofka.luchotest.persistence.repositroy.MovimientoRepository;
+import co.com.sofka.luchotest.service.interfaces.ICuentaService;
+import co.com.sofka.luchotest.service.interfaces.IMovimientoService;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class MovimientoService {
+public class MovimientoService implements IMovimientoService {
 
     private final MovimientoRepository movimientoRepository;
 
-    private final CuentaService cuentaService;
+    private final ICuentaService cuentaService;
 
+    @Override
     @Transactional
     public MovimientoEntity crearMovimiento(MovimientoEntity movimientoEntity) {
 
@@ -51,6 +54,7 @@ public class MovimientoService {
         return movimientoRepository.save(movimientoEntity);
     }
 
+    @Override
     public MovimientoEntity updateMovimiento(MovimientoEntity movimientoEntity) {
         if (!movimientoRepository.existsById(movimientoEntity.getId())) {
             throw new NoSuchElementException("Movimiento no encontrado con id: " + movimientoEntity.getId());
@@ -58,11 +62,15 @@ public class MovimientoService {
         return movimientoRepository.save(movimientoEntity);
     }
 
+    @Override
+
     public MovimientoEntity getMovimientoById(Long id) {
         return movimientoRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Movimiento no encontrado con id: " + id)
         );
     }
+
+    @Override
 
     public void deleteMovimiento(Long id) {
         if (!movimientoRepository.existsById(id)) {
@@ -71,6 +79,7 @@ public class MovimientoService {
         movimientoRepository.deleteById(id);
     }
 
+    @Override
     public List<MovimientoEntity> getMovimientosByCuentaId(Long cuentaId, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
 
         return movimientoRepository.findByCuentaIdAndFechaBetween(cuentaId, fechaInicio, fechaFin);
