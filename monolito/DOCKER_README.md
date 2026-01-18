@@ -71,7 +71,6 @@ You can customize the application using these environment variables:
 | `SPRING_DATASOURCE_PASSWORD` | `password` | Database password |
 | `SPRING_SECURITY_USER_NAME` | `admin` | Application username |
 | `SPRING_SECURITY_USER_PASSWORD` | `admin123` | Application password |
-| `SPRING_PROFILES_ACTIVE` | `prod` | Active Spring profile |
 
 ### Override with Environment File
 

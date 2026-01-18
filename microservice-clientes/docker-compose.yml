@@ -36,7 +36,6 @@ services:
       SPRING_SECURITY_USER_NAME: admin
       SPRING_SECURITY_USER_PASSWORD: admin
       # Spring profile
-      SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8081:8081"
     depends_on:

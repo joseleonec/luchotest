@@ -74,7 +74,6 @@ You can customize the application using these environment variables:
 | `SPRING_DATASOURCE_PASSWORD` | `password` | Database password |
 | `SPRING_SECURITY_USER_NAME` | `admin` | Application username |
 | `SPRING_SECURITY_USER_PASSWORD` | `admin123` | Application password |
-| `SPRING_PROFILES_ACTIVE` | `prod` | Active Spring profile |
 | `API_MSCLIENTES_URL` | `http://localhost:8081` | Clients service URL |
 | `API_MSCLIENTES_BASIC_AUTH_USER` | `admin` | Clients service username |
 | `API_MSCLIENTES_BASIC_AUTH_PASSWORD` | `admin` | Clients service password |
