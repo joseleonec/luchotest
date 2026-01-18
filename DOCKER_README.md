@@ -71,13 +71,13 @@ You can customize the application using these environment variables:
 | `SPRING_DATASOURCE_PASSWORD` | `password` | Database password |
 | `SPRING_SECURITY_USER_NAME` | `admin` | Application username |
 | `SPRING_SECURITY_USER_PASSWORD` | `admin123` | Application password |
-| `SPRING_PROFILES_ACTIVE` | `prod` | Active Spring profile |
 
 ### Override with Environment File
 
 Create a `.env` file in the project root:
 
 ```env
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/luchotestdb
 SPRING_DATASOURCE_USERNAME=myuser
 SPRING_DATASOURCE_PASSWORD=mysecretpassword
 SPRING_SECURITY_USER_NAME=myadmin
