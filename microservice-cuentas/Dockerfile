@@ -1,51 +1,23 @@
 # Multi-stage build for Spring Boot application
 # Stage 1: Build the application
-FROM eclipse-temurin:21-jdk-alpine AS build
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first for better layer caching
-COPY mvnw .
-COPY mvnw.cmd .
-COPY .mvn .mvn
+# Copy pom.xml first for better layer caching
 COPY pom.xml .
 
-# Make Maven wrapper executable
-RUN chmod +x mvnw
-
 # Download dependencies (this will be cached if pom.xml doesn't change)
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 
 # Copy source code
 COPY src src
 
-# Build the application without tests first
-RUN ./mvnw clean compile
+# Build the application and run tests
+RUN mvn clean package
 
-# Stage 2: Test stage - Run tests before proceeding
-FROM eclipse-temurin:21-jdk-alpine AS test
-
-WORKDIR /app
-
-# Copy everything from build stage
-COPY --from=build /app .
-
-# Run tests (this stage will fail if tests fail)
-RUN ./mvnw test
-
-# Stage 3: Package stage - Create final JAR after tests pass
-FROM eclipse-temurin:21-jdk-alpine AS package
-
-WORKDIR /app
-
-# Copy everything from test stage (tests have passed at this point)
-COPY --from=test /app .
-
-# Create the final JAR package (now that tests passed)
-RUN ./mvnw package -DskipTests
-
-# Stage 4: Runtime image
+# Stage 2: Runtime image
 FROM eclipse-temurin:21-jre-alpine
 
 
@@ -56,8 +28,8 @@ RUN addgroup -g 1001 -S appgroup && \
 # Set working directory
 WORKDIR /app
 
-# Copy the built JAR from package stage
-COPY --from=package /app/target/mscuentas-*.jar app.jar
+# Copy the built JAR from build stage
+COPY --from=build /app/target/mscuentas-*.jar app.jar
 
 # Change ownership to app user
 RUN chown appuser:appgroup app.jar
