@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -152,6 +153,18 @@ public class RestExceptionHandler {
                 .message(CustomErrorMessages.ILLEGAL_STATE)
                 .detail(ex.getMessage())
                 .statusCode(HttpStatus.NOT_FOUND)
+                .path(request.getDescription(false).replace("uri=", ""))
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex,
+            WebRequest request) {
+        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+                .message(CustomErrorMessages.INVALID_FIELD)
+                .detail(ex.getMessage())
+                .statusCode(HttpStatus.BAD_REQUEST)
                 .path(request.getDescription(false).replace("uri=", ""))
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);

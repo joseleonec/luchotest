@@ -52,7 +52,6 @@ public class CuentaService {
 
         var cuentaEntity = getCuentaById(cuentaId);
 
-        // Solo actualizar el saldo disponible, mantener el saldo inicial
         cuentaEntity.setSaldoDisponible(nuevoSaldoDisponible);
 
         return cuentaRepository.save(cuentaEntity);

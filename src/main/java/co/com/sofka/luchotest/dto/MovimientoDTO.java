@@ -3,6 +3,8 @@ package co.com.sofka.luchotest.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import co.com.sofka.luchotest.dto.enums.TipoMovimientoEnum;
+
 
 public record MovimientoDTO (
     
@@ -10,7 +12,7 @@ public record MovimientoDTO (
 
     LocalDateTime fecha,
 
-    String tipoMovimiento,
+    TipoMovimientoEnum tipoMovimiento,
 
     BigDecimal valor,
 

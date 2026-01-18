@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.sofka.luchotest.dto.enums.TipoMovimientoEnum;
 import co.com.sofka.luchotest.exceptions.SaldoInsuficienteException;
 import co.com.sofka.luchotest.persistence.entity.MovimientoEntity;
 import co.com.sofka.luchotest.persistence.repositroy.MovimientoRepository;
@@ -31,6 +32,10 @@ public class MovimientoService {
 
         var valorMovimiento = movimientoEntity.getValor();
 
+        if (movimientoEntity.getTipoMovimiento().equals(TipoMovimientoEnum.RETIRO.name())) {
+            valorMovimiento = valorMovimiento.negate();
+        }
+
         var nuevoSaldo = saldoAnterior.add(valorMovimiento);
 
         if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
@@ -38,7 +43,7 @@ public class MovimientoService {
         }
 
         movimientoEntity.setSaldoInicial(saldoAnterior);
-        
+
         movimientoEntity.setSaldo(nuevoSaldo);
 
         cuentaService.updateCuentaSaldo(cuentaId, nuevoSaldo);
