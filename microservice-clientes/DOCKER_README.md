@@ -1,6 +1,6 @@
-# Docker Setup for Luchotest Application
+# Docker Setup for msclientes Application
 
-This document provides instructions for running the Luchotest Spring Boot application using Docker.
+This document provides instructions for running the msclientes Spring Boot application using Docker.
 
 ## Prerequisites
 
@@ -38,8 +38,8 @@ docker-compose logs -f app
 
 - **Database:**
   - Host: `localhost:5432`
-  - Database: `luchotestdb`
-  - Username: `luchotest`
+  - Database: `msclientesdb`
+  - Username: `msclientes`
   - Password: `password`
 
 ## Advanced Usage
@@ -52,7 +52,7 @@ docker build -t joseleon97/sofkabacktest .
 
 # Run the container (requires external PostgreSQL)
 docker run -p 8080:8080 \
-  -e SPRING_DATASOURCE_URL=jdbc:postgresql://your-db-host:5432/luchotestdb \
+  -e SPRING_DATASOURCE_URL=jdbc:postgresql://your-db-host:5432/msclientesdb \
   -e SPRING_DATASOURCE_USERNAME=your-username \
   -e SPRING_DATASOURCE_PASSWORD=your-password \
   -e SPRING_SECURITY_USER_NAME=admin \
@@ -66,8 +66,8 @@ You can customize the application using these environment variables:
 
 | Variable | Default Value | Description |
 |----------|---------------|-------------|
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://postgres:5432/luchotestdb` | Database connection URL |
-| `SPRING_DATASOURCE_USERNAME` | `luchotest` | Database username |
+| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://postgres:5432/msclientesdb` | Database connection URL |
+| `SPRING_DATASOURCE_USERNAME` | `msclientes` | Database username |
 | `SPRING_DATASOURCE_PASSWORD` | `password` | Database password |
 | `SPRING_SECURITY_USER_NAME` | `admin` | Application username |
 | `SPRING_SECURITY_USER_PASSWORD` | `admin123` | Application password |
@@ -121,10 +121,10 @@ docker-compose logs postgres
 docker-compose logs app
 
 # Access database directly
-docker exec -it luchotest-postgres psql -U luchotest -d luchotestdb
+docker exec -it msclientes-postgres psql -U msclientes -d msclientesdb
 
 # Access application container
-docker exec -it luchotest-app sh
+docker exec -it msclientes-app sh
 
 # Rebuild only the app (after code changes)
 docker-compose build app
@@ -141,7 +141,7 @@ docker-compose up app
 ### Database connection issues
 1. Wait for PostgreSQL to be fully ready (health check)
 2. Verify database credentials
-3. Check if database `luchotestdb` exists
+3. Check if database `msclientesdb` exists
 
 ### Port conflicts
 If ports 8080 or 5432 are already in use, modify the `docker-compose.yml` file:
@@ -169,5 +169,5 @@ The application includes built-in health checks:
 curl http://localhost:8080/actuator/health
 
 # Check Docker container health
-docker inspect --format='{{.State.Health.Status}}' luchotest-app
+docker inspect --format='{{.State.Health.Status}}' msclientes-app
 ```

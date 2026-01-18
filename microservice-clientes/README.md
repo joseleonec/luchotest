@@ -1,4 +1,4 @@
-# Luchotest - Spring Boot Application
+# msclientes - Spring Boot Application
 
 A modern banking application backend built with Spring Boot and Java 21. It provides a REST API for managing clients, accounts, and transactions, featuring PostgreSQL integration and Docker containerization.
 
@@ -27,10 +27,10 @@ A modern banking application backend built with Spring Boot and Java 21. It prov
 ## 🏗️ Project Structure
 
 ```text
-luchotest/
+msclientes/
 ├── src/
 │   ├── main/
-│   │   ├── java/co/com/sofka/luchotest/
+│   │   ├── java/co/com/sofka/msclientes/
 │   │   │   ├── config/         # Security & Global configs
 │   │   │   ├── controller/     # API Endpoints
 │   │   │   ├── dto/            # Data Transfer Objects
@@ -64,7 +64,7 @@ luchotest/
 
 ```bash
 git clone <repository-url>
-cd luchotest
+cd msclientes
 ```
 
 ### 2. Environment Configuration
@@ -109,7 +109,7 @@ This starts PostgreSQL on port `5432` and initializes the schema using `BaseDato
 
 **Local Installation:**
 1. Install PostgreSQL.
-2. Create a database named `luchotestdb`.
+2. Create a database named `msclientesdb`.
 3. Execute the script `db/BaseDatos.sql` to create tables.
 
 ### 4. Running the Application
@@ -141,7 +141,7 @@ Run the integration tests using Maven:
 ## 📡 API Documentation
 
 A **Postman Collection** is included to facilitate testing.
--   **File**: `src/main/resources/luchotest-sofka.postman_collection.json`
+-   **File**: `src/main/resources/msclientes-sofka.postman_collection.json`
 -   **Usage**: Import into Postman. It includes pre-configured requests for all endpoints.
 
 ### Main Endpoints
@@ -166,7 +166,7 @@ docker build -t joseleon97/sofkabacktest .
 
 # Run
 docker run -p 8080:8080 \
-  -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/luchotestdb \
+  -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/msclientesdb \
   -e SPRING_DATASOURCE_USERNAME=postgres \
   -e SPRING_DATASOURCE_PASSWORD=postgres \
   -e SPRING_SECURITY_USER_NAME=admin \

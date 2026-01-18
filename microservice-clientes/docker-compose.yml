@@ -8,16 +8,16 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: luchotestdb
+      POSTGRES_DB: msclientesdb
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db/BaseDatos.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - luchotest-network
+      - msclientes-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U luchotest -d luchotestdb"]
+      test: ["CMD-SHELL", "pg_isready -U msclientes -d msclientesdb"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,10 +25,10 @@ services:
   # Spring Boot Application
   app:
     build: .
-    container_name: luchotest-app
+    container_name: msclientes-app
     environment:
       # Database configuration
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/luchotestdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/msclientesdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       # Security configuration
@@ -42,12 +42,12 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      - luchotest-network
+      - msclientes-network
     restart: unless-stopped
 
 volumes:
   postgres_data:
 
 networks:
-  luchotest-network:
+  msclientes-network:
     driver: bridge

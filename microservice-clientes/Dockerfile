@@ -57,7 +57,7 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copy the built JAR from package stage
-COPY --from=package /app/target/luchotest-*.jar app.jar
+COPY --from=package /app/target/msclientes-*.jar app.jar
 
 # Change ownership to app user
 RUN chown appuser:appgroup app.jar
