@@ -40,6 +40,24 @@ Across the projects, you will find implementations for:
 
 ## 🏁 Getting Started
 
+You can run the application either as a Monolith or as Microservices.
+
+### Option 1: Run as Monolith
+To run the monolithic version of the application using Docker, execute the following command:
+
+```bash
+docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/sofkabacktest:latest
+```
+
+### Option 2: Run as Microservices
+To run the application as a set of microservices using Docker Compose, execute:
+
+```bash
+docker-compose up
+```
+
+### Project Details
+
 Each project contains its own `README.md` file with specific instructions on how to build and run the application.
 
 1.  **Monolito:** See [monolito/README.md](./monolito/README.md)
