@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import co.com.sofka.msclientes.dto.ClienteCreateDTO;
+import co.com.sofka.msclientes.dto.ClienteResponseDTO;
 import co.com.sofka.msclientes.persistence.entity.ClienteEntity;
 
 @Mapper(componentModel = "spring")
@@ -22,4 +23,7 @@ public interface ClienteMapper {
     @Mapping(target = "estado", source = "dto.estado")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     ClienteEntity toEntity(ClienteCreateDTO dto);
+
+    ClienteResponseDTO toDTO(ClienteEntity entity);
+
 }
