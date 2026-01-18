@@ -73,6 +73,7 @@ To protect sensitive data, this application uses environment variables. You must
 
 | Variable | Description | Example |
 |----------|-------------|---------|
+| `SPRING_DATASOURCE_URL` | Database connection URL | `jdbc:postgresql://localhost:5432/msclientesdb` |
 | `SPRING_DATASOURCE_USERNAME` | Database username | `postgres` |
 | `SPRING_DATASOURCE_PASSWORD` | Database password | `mysecretpassword` |
 | `SPRING_SECURITY_USER_NAME` | API Admin username | `admin` |
@@ -84,12 +85,14 @@ Create a `.env` file in the root directory (variables are automatically picked u
 **Option B: Terminal Export (Local Run)**
 ```bash
 # Linux/Mac
+export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/msclientesdb
 export SPRING_DATASOURCE_USERNAME=postgres
 export SPRING_DATASOURCE_PASSWORD=postgres
 export SPRING_SECURITY_USER_NAME=admin
 export SPRING_SECURITY_USER_PASSWORD=admin
 
 # Windows PowerShell
+$env:SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/msclientesdb"
 $env:SPRING_DATASOURCE_USERNAME="postgres"
 $env:SPRING_DATASOURCE_PASSWORD="postgres"
 $env:SPRING_SECURITY_USER_NAME="admin"

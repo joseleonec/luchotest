@@ -77,6 +77,7 @@ You can customize the application using these environment variables:
 Create a `.env` file in the project root:
 
 ```env
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/msclientesdb
 SPRING_DATASOURCE_USERNAME=myuser
 SPRING_DATASOURCE_PASSWORD=mysecretpassword
 SPRING_SECURITY_USER_NAME=myadmin
