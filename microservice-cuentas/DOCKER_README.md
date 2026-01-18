@@ -57,6 +57,9 @@ docker run -p 8080:8080 \
   -e SPRING_DATASOURCE_PASSWORD=your-password \
   -e SPRING_SECURITY_USER_NAME=admin \
   -e SPRING_SECURITY_USER_PASSWORD=admin123 \
+  -e API_MSCLIENTES_URL=http://your-clients-host:8081 \
+  -e API_MSCLIENTES_BASIC_AUTH_USER=admin \
+  -e API_MSCLIENTES_BASIC_AUTH_PASSWORD=admin \
   joseleon97/sofkabacktest
 ```
 
@@ -72,6 +75,9 @@ You can customize the application using these environment variables:
 | `SPRING_SECURITY_USER_NAME` | `admin` | Application username |
 | `SPRING_SECURITY_USER_PASSWORD` | `admin123` | Application password |
 | `SPRING_PROFILES_ACTIVE` | `prod` | Active Spring profile |
+| `API_MSCLIENTES_URL` | `http://localhost:8081` | Clients service URL |
+| `API_MSCLIENTES_BASIC_AUTH_USER` | `admin` | Clients service username |
+| `API_MSCLIENTES_BASIC_AUTH_PASSWORD` | `admin` | Clients service password |
 
 ### Override with Environment File
 
@@ -82,6 +88,9 @@ SPRING_DATASOURCE_USERNAME=myuser
 SPRING_DATASOURCE_PASSWORD=mysecretpassword
 SPRING_SECURITY_USER_NAME=myadmin
 SPRING_SECURITY_USER_PASSWORD=mysecretadminpass
+API_MSCLIENTES_URL=http://myclientsservice:8081
+API_MSCLIENTES_BASIC_AUTH_USER=myadmin
+API_MSCLIENTES_BASIC_AUTH_PASSWORD=mysecretadminpass
 ```
 
 Then run with:

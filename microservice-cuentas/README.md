@@ -77,6 +77,9 @@ To protect sensitive data, this application uses environment variables. You must
 | `SPRING_DATASOURCE_PASSWORD` | Database password | `mysecretpassword` |
 | `SPRING_SECURITY_USER_NAME` | API Admin username | `admin` |
 | `SPRING_SECURITY_USER_PASSWORD` | API Admin password | `admin123` |
+| `API_MSCLIENTES_URL` | URL of the Customers Microservice | `http://localhost:8081` |
+| `API_MSCLIENTES_BASIC_AUTH_USER` | Clients Service Basic Auth User | `admin` |
+| `API_MSCLIENTES_BASIC_AUTH_PASSWORD` | Clients Service Basic Auth Password | `admin` |
 
 **Option A: Using an `.env` file (Docker)**
 Create a `.env` file in the root directory (variables are automatically picked up by docker-compose).
@@ -88,12 +91,18 @@ export SPRING_DATASOURCE_USERNAME=postgres
 export SPRING_DATASOURCE_PASSWORD=postgres
 export SPRING_SECURITY_USER_NAME=admin
 export SPRING_SECURITY_USER_PASSWORD=admin
+export API_MSCLIENTES_URL=http://localhost:8081
+export API_MSCLIENTES_BASIC_AUTH_USER=admin
+export API_MSCLIENTES_BASIC_AUTH_PASSWORD=admin
 
 # Windows PowerShell
 $env:SPRING_DATASOURCE_USERNAME="postgres"
 $env:SPRING_DATASOURCE_PASSWORD="postgres"
 $env:SPRING_SECURITY_USER_NAME="admin"
 $env:SPRING_SECURITY_USER_PASSWORD="admin"
+$env:API_MSCLIENTES_URL="http://localhost:8081"
+$env:API_MSCLIENTES_BASIC_AUTH_USER="admin"
+$env:API_MSCLIENTES_BASIC_AUTH_PASSWORD="admin"
 ```
 
 ### 3. Database Setup
@@ -171,12 +180,15 @@ docker run -p 8080:8080 \
   -e SPRING_DATASOURCE_PASSWORD=postgres \
   -e SPRING_SECURITY_USER_NAME=admin \
   -e SPRING_SECURITY_USER_PASSWORD=admin \
+  -e API_MSCLIENTES_URL=http://host.docker.internal:8081 \
+  -e API_MSCLIENTES_BASIC_AUTH_USER=admin \
+  -e API_MSCLIENTES_BASIC_AUTH_PASSWORD=admin \
   joseleon97/mscuentas:latest
 ```
 #### Run remote image Docker Hub
 
 ```bash
-docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/mscuentas:latest
+docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin -e API_MSCLIENTES_URL=http://host.docker.internal:8081 -e API_MSCLIENTES_BASIC_AUTH_USER=admin -e API_MSCLIENTES_BASIC_AUTH_PASSWORD=admin joseleon97/mscuentas:latest
 ```
 
 ## 📄 License
