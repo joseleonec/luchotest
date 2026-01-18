@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.sofka.luchotest.dto.ClienteCreateDTO;
 import co.com.sofka.luchotest.mapper.ClienteMapper;
 import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
-import co.com.sofka.luchotest.service.ClienteService;
+import co.com.sofka.luchotest.service.interfaces.IClienteService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -24,7 +24,7 @@ public class ClienteController {
 
     private final ClienteMapper clienteMapper;
 
-    private final ClienteService clienteService;
+    private final IClienteService clienteService;
 
     @PostMapping
     public ResponseEntity<ClienteEntity> crearCliente(@Valid @RequestBody ClienteCreateDTO cliente) {

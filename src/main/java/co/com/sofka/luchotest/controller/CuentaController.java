@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.sofka.luchotest.dto.CuentaCreateDTO;
 import co.com.sofka.luchotest.dto.CuentaDTO;
 import co.com.sofka.luchotest.mapper.CuentaMapper;
-import co.com.sofka.luchotest.service.CuentaService;
+import co.com.sofka.luchotest.service.interfaces.ICuentaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -24,7 +24,7 @@ public class CuentaController {
 
     private final CuentaMapper cuentaMapper;
 
-    private final CuentaService cuentaService;
+    private final ICuentaService cuentaService;
 
     @PostMapping
     public ResponseEntity<CuentaDTO> crearCuenta(@Valid @RequestBody CuentaCreateDTO cuenta) {

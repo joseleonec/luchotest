@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.sofka.luchotest.dto.EstadoCuentaDTO;
 import co.com.sofka.luchotest.dto.ReporteRequestDTO;
-import co.com.sofka.luchotest.service.EstadoCuntaService;
+import co.com.sofka.luchotest.service.interfaces.IEstadoCuentaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/reportes")
 public class ReportesController {
 
-    private final EstadoCuntaService estadoCuntaService;
+    private final IEstadoCuentaService estadoCuntaService;
 
     @PostMapping
     public ResponseEntity<List<EstadoCuentaDTO>> generarReporteMovimientos(@Valid @RequestBody ReporteRequestDTO reporteRequestDTO) {

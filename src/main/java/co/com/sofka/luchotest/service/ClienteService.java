@@ -7,14 +7,16 @@ import org.springframework.stereotype.Service;
 import co.com.sofka.luchotest.exceptions.ResourceAlreadyExistsException;
 import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
 import co.com.sofka.luchotest.persistence.repositroy.ClienteRepository;
+import co.com.sofka.luchotest.service.interfaces.IClienteService;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ClienteService {
+public class ClienteService implements IClienteService {
 
     private final ClienteRepository clienteRepository;
 
+    @Override
     public ClienteEntity crearCliente(ClienteEntity clienteEntity) {
 
         if (clienteRepository.existsByClienteId(clienteEntity.getClienteId())) {
@@ -24,6 +26,7 @@ public class ClienteService {
         return clienteRepository.save(clienteEntity);
     }
 
+    @Override
     public ClienteEntity updateCliente(ClienteEntity clienteEntity) {
         // Here we are updating by internal ID (PK Long id), distinct from business ID (String clienteId)
         if (!clienteRepository.existsById(clienteEntity.getId())) {
@@ -31,13 +34,15 @@ public class ClienteService {
         }
         return clienteRepository.save(clienteEntity);
     }
-
+@Override
+    
     public ClienteEntity getClienteById(Long id) {
         return clienteRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Cliente no encontrado con id: " + id)
         );
     }
-
+@Override
+    
     public void deleteCliente(Long id) {
         if (!clienteRepository.existsById(id)) {
             throw new NoSuchElementException("Cliente no encontrado con id: " + id);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.sofka.luchotest.dto.MovimientoCreateDTO;
 import co.com.sofka.luchotest.dto.MovimientoDTO;
 import co.com.sofka.luchotest.mapper.MovimientoMapper;
-import co.com.sofka.luchotest.service.MovimientoService;
+import co.com.sofka.luchotest.service.interfaces.IMovimientoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -24,7 +24,7 @@ public class MovimientoController {
 
     private final MovimientoMapper movimientoMapper;
 
-    private final MovimientoService movimientoService;
+    private final IMovimientoService movimientoService;
 
     @PostMapping
     public ResponseEntity<MovimientoDTO> crearMovimiento(@Valid @RequestBody MovimientoCreateDTO movimiento) {

@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 
 import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
 import co.com.sofka.luchotest.persistence.repositroy.CuentaRepository;
+import co.com.sofka.luchotest.service.interfaces.ICuentaService;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class CuentaService {
+public class CuentaService implements ICuentaService {
 
     private final CuentaRepository cuentaRepository;
 
+    @Override
     public CuentaEntity crearCuenta(CuentaEntity cuentaEntity) {
         // Inicializar saldo disponible igual al saldo inicial si no está establecido
         if (cuentaEntity.getSaldoDisponible() == null) {
@@ -24,6 +26,7 @@ public class CuentaService {
         return cuentaRepository.save(cuentaEntity);
     }
 
+    @Override
     public CuentaEntity updateCuenta(CuentaEntity cuentaEntity) {
         if (!cuentaRepository.existsById(cuentaEntity.getId())) {
             throw new NoSuchElementException("Cuenta no encontrada con id: " + cuentaEntity.getId());
@@ -31,11 +34,15 @@ public class CuentaService {
         return cuentaRepository.save(cuentaEntity);
     }
 
+    @Override
+
     public CuentaEntity getCuentaById(Long id) {
         return cuentaRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Cuenta no encontrada con id: " + id)
         );
     }
+
+    @Override
 
     public void deleteCuenta(Long id) {
         if (!cuentaRepository.existsById(id)) {
@@ -44,6 +51,7 @@ public class CuentaService {
         cuentaRepository.deleteById(id);
     }
 
+    @Override
     public CuentaEntity updateCuentaSaldo(Long cuentaId, BigDecimal nuevoSaldoDisponible) {
 
         if (!cuentaRepository.existsById(cuentaId)) {
@@ -52,12 +60,12 @@ public class CuentaService {
 
         var cuentaEntity = getCuentaById(cuentaId);
 
-        // Solo actualizar el saldo disponible, mantener el saldo inicial
         cuentaEntity.setSaldoDisponible(nuevoSaldoDisponible);
 
         return cuentaRepository.save(cuentaEntity);
     }
 
+    @Override
     public List<CuentaEntity> getCuentasByClienteId(Long clienteId) {
         if (clienteId == null) {
             throw new IllegalArgumentException("El ID del cliente no puede ser nulo");

@@ -10,17 +10,21 @@ import co.com.sofka.luchotest.dto.EstadoCuentaDTO;
 import co.com.sofka.luchotest.mapper.CuentaMapper;
 import co.com.sofka.luchotest.mapper.MovimientoMapper;
 import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
+import co.com.sofka.luchotest.service.interfaces.ICuentaService;
+import co.com.sofka.luchotest.service.interfaces.IEstadoCuentaService;
+import co.com.sofka.luchotest.service.interfaces.IMovimientoService;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class EstadoCuntaService {
+public class EstadoCuntaService implements IEstadoCuentaService {
 
-    private final CuentaService cuentaService;
-    private final MovimientoService movimientoService;
+    private final ICuentaService cuentaService;
+    private final IMovimientoService movimientoService;
     private final CuentaMapper cuentaMapper;
     private final MovimientoMapper movimientoMapper;
 
+    @Override
     public List<EstadoCuentaDTO> generarEstadoCuenta(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin) {
 
         var cuentasCliente = cuentaService.getCuentasByClienteId(clienteId);

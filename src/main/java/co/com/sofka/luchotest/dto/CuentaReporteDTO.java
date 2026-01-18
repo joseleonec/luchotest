@@ -11,7 +11,7 @@ public record CuentaReporteDTO(
 
     String numeroCuenta,
     
-    BigDecimal saldoInicial,
+    BigDecimal saldoDisponible,
 
     String estado
 

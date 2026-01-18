@@ -2,16 +2,18 @@ package co.com.sofka.luchotest.dto;
 
 import java.math.BigDecimal;
 
+import co.com.sofka.luchotest.dto.enums.TipoMovimientoEnum;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public record MovimientoCreateDTO(
     
-    @NotBlank
-    String tipoMovimiento,
+    @NotNull
+    TipoMovimientoEnum tipoMovimiento,
 
     @NotNull
+    @Positive
     BigDecimal valor,
 
     @NotNull
