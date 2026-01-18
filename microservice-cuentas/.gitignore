@@ -35,4 +35,3 @@ build/
 db/postgres_data/
 
 *.env
-db/

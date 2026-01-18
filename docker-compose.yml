@@ -1,52 +1,100 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
+  # ==========================================
+  # Microservice Clientes
+  # ==========================================
+  
+  postgres-clientes:
     image: postgres:14.20-trixie
-    container_name: postgresdb
+    container_name: postgres-clientes
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: luchotestdb
+      POSTGRES_DB: msclientesdb
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./db/BaseDatos.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_clientes_data:/var/lib/postgresql/data
+      - ./microservice-clientes/db/BaseDatos.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - luchotest-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U luchotest -d luchotestdb"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d msclientesdb"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Spring Boot Application
-  app:
-    build: .
-    container_name: luchotest-app
+  msclientes:
+    image: joseleon97/msclientes:latest
+    container_name: msclientes
     environment:
-      # Database configuration
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/luchotestdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-clientes:5432/msclientesdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      # Security configuration
       SPRING_SECURITY_USER_NAME: admin
       SPRING_SECURITY_USER_PASSWORD: admin
-      # Spring profile
-      SPRING_PROFILES_ACTIVE: prod
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
-      postgres:
+      postgres-clientes:
         condition: service_healthy
     networks:
       - luchotest-network
     restart: unless-stopped
 
+
+  # ==========================================
+  # Microservice Cuentas
+  # ==========================================
+
+  postgres-cuentas:
+    image: postgres:14.20-trixie
+    container_name: postgres-cuentas
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mscuentasdb
+    ports:
+      - "5433:5432" # Mapped to 5433 to avoid conflict
+    volumes:
+      - postgres_cuentas_data:/var/lib/postgresql/data
+      - ./microservice-cuentas/db/BaseDatos.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - luchotest-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mscuentasdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mscuentas:
+    image: joseleon97/mscuentas:latest
+    container_name: mscuentas
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-cuentas:5432/mscuentasdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin
+      # Config to connect to msclientes
+      API_MSCLIENTES_URL: http://msclientes:8081
+      API_MSCLIENTES_BASIC_AUTH_USER: admin
+      API_MSCLIENTES_BASIC_AUTH_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-cuentas:
+        condition: service_healthy
+      msclientes:
+        condition: service_started
+    networks:
+      - luchotest-network
+    restart: unless-stopped
+
 volumes:
-  postgres_data:
+  postgres_clientes_data:
+  postgres_cuentas_data:
 
 networks:
   luchotest-network:

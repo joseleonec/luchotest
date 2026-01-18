@@ -1,187 +1,69 @@
-# Luchotest - Spring Boot Application
+# Luchotest Banking Application Repository
 
-A modern banking application backend built with Spring Boot and Java 21. It provides a REST API for managing clients, accounts, and transactions, featuring PostgreSQL integration and Docker containerization.
+This repository hosts a banking application solution implemented with Spring Boot and Java 21. It demonstrates different architectural approaches, containing both a monolithic implementation and a microservices-based breakdown.
 
-## 🚀 Features
+## 📂 Repository Structure
 
-- **Client Management**: Create, read, update, and delete client information.
-- **Account Management**: Manage bank accounts (Savings/Checking).
-- **Transaction Processing**: Handle deposits, withdrawals, and balance updates.
-- **Reporting**: Generate account statements and activity reports.
-- **Security**: Basic Authentication implemented with Spring Security.
-- **Docker Support**: Full containerization for application and database.
-- **Testing**: Comprehensive integration tests.
+The repository is organized into three main Spring Boot projects:
 
-## 🛠️ Tech Stack
+### 1. [Monolito](./monolito)
+A comprehensive monolithic application named **Luchotest**. It encapsulates all banking features in a single deployable unit.
+- **Key Features:** Client management, account management, transaction processing.
+- **Tech Stack:** Spring Boot 4.0.1, Java 21, PostgreSQL.
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Java | 21 | Programming Language |
-| Spring Boot | 4.0.1 | Application Framework |
-| PostgreSQL | Latest | Database |
-| Spring Data JPA | - | Data Access / ORM |
-| Spring Security | - | Authentication |
-| MapStruct | - | Object Mapping |
-| Docker | - | Containerization |
+### 2. [Microservice Clientes](./microservice-clientes)
+A dedicated microservice (**msclientes**) focusing on the management of bank clients.
+- **Responsibilities:** Creating, updating, and retrieving client personal information.
+- **Tech Stack:** Spring Boot, Java 21, PostgreSQL.
 
-## 🏗️ Project Structure
+### 3. [Microservice Cuentas](./microservice-cuentas)
+A dedicated microservice (**mscuentas**) for managing banking products.
+- **Responsibilities:** Managing savings/checking accounts and processing transactions (deposits, withdrawals).
+- **Tech Stack:** Spring Boot, Java 21, PostgreSQL.
 
-```text
-luchotest/
-├── src/
-│   ├── main/
-│   │   ├── java/co/com/sofka/luchotest/
-│   │   │   ├── config/         # Security & Global configs
-│   │   │   ├── controller/     # API Endpoints
-│   │   │   ├── dto/            # Data Transfer Objects
-│   │   │   ├── exceptions/     # Custom Exceptions
-│   │   │   ├── mapper/         # DTO-Entity Mappers
-│   │   │   ├── persistence/    # Persistence Layer
-│   │   │   │   ├── entity/     # Database Entities
-│   │   │   │   └── repository/ # JPA Repositories
-│   │   │   └── service/        # Business Logic
-│   │   └── resources/
-│   │       ├── db/             # Database initialization scripts
-│   │       ├── application.properties
-│   │       └── application-prod.properties
-├── db/                         # Database specific configurations
-│   ├── BaseDatos.sql
-│   └── docker-compose.yml
-├── Dockerfile                  # Application Dockerfile
-├── docker-compose.yml          # Main composition file
-└── pom.xml
-```
+## 🚀 Common Features
 
-## 📋 Prerequisites
+Across the projects, you will find implementations for:
+- **RESTful APIs** for banking operations.
+- **Database Integration** using PostgreSQL.
+- **Containerization** support with Docker and Docker Compose.
+- **Security** implementation using Spring Security.
+- **Testing** with integration tests.
 
-- **Java 21** Development Kit (JDK)
-- **Maven** 3.8+
-- **Docker** & **Docker Compose** (Recommended)
+## 🛠️ Technology Stack
 
-## ⚡ Getting Started
+- **Language:** Java 21
+- **Framework:** Spring Boot
+- **Database:** PostgreSQL
+- **Containerization:** Docker
+- **Build Tool:** Maven
 
-### 1. Clone the Repository
+## 🏁 Getting Started
 
-```bash
-git clone <repository-url>
-cd luchotest
-```
+You can run the application either as a Monolith or as Microservices.
 
-### 2. Environment Configuration
-
-To protect sensitive data, this application uses environment variables. You must set these variables before running the application.
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `SPRING_DATASOURCE_URL` | Database connection URL | `jdbc:postgresql://localhost:5432/luchotestdb` |
-| `SPRING_DATASOURCE_USERNAME` | Database username | `postgres` |
-| `SPRING_DATASOURCE_PASSWORD` | Database password | `mysecretpassword` |
-| `SPRING_SECURITY_USER_NAME` | API Admin username | `admin` |
-| `SPRING_SECURITY_USER_PASSWORD` | API Admin password | `admin123` |
-
-**Option A: Using an `.env` file (Docker)**
-Create a `.env` file in the root directory (variables are automatically picked up by docker-compose).
-
-**Option B: Terminal Export (Local Run)**
-```bash
-# Linux/Mac
-export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/luchotestdb
-export SPRING_DATASOURCE_USERNAME=postgres
-export SPRING_DATASOURCE_PASSWORD=postgres
-export SPRING_SECURITY_USER_NAME=admin
-export SPRING_SECURITY_USER_PASSWORD=admin
-
-# Windows PowerShell
-$env:SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/luchotestdb"
-$env:SPRING_DATASOURCE_USERNAME="postgres"
-$env:SPRING_DATASOURCE_PASSWORD="postgres"
-$env:SPRING_SECURITY_USER_NAME="admin"
-$env:SPRING_SECURITY_USER_PASSWORD="admin"
-```
-
-### 3. Database Setup
-
-**Using Docker (Recommended):**
-Start a standalone PostgreSQL instance using the configuration in the `db` folder:
-
-```bash
-cd db
-docker-compose up -d
-```
-This starts PostgreSQL on port `5432` and initializes the schema using `BaseDatos.sql`.
-
-**Local Installation:**
-1. Install PostgreSQL.
-2. Create a database named `luchotestdb`.
-3. Execute the script `db/BaseDatos.sql` to create tables.
-
-### 4. Running the Application
-
-**Run with Maven:**
-Ensure the environment variables are set and the database is running.
-
-```bash
-./mvnw spring-boot:run
-```
-
-**Run with Docker Compose (Full Stack):**
-This will build the app image and run it alongside the database.
-
-```bash
-docker-compose up --build
-```
-
-The application will be accessible at `http://localhost:8080`.
-
-## 🧪 Testing
-
-Run the integration tests using Maven:
-
-```bash
-./mvnw test
-```
-
-## 📡 API Documentation
-
-A **Postman Collection** is included to facilitate testing.
--   **File**: `src/main/resources/luchotest-sofka.postman_collection.json`
--   **Usage**: Import into Postman. It includes pre-configured requests for all endpoints.
-
-### Main Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/clientes` | List all clients |
-| `POST` | `/clientes` | Create a new client |
-| `POST` | `/cuentas` | Create a new account |
-| `POST` | `/movimientos` | Register a transaction |
-| `GET` | `/reportes` | Generic reports |
-
-*Note: Endpoints require Basic Authentication using the credentials set in `SPRING_SECURITY_USER_NAME` and `SPRING_SECURITY_USER_PASSWORD`.*
-
-## 🐳 Docker Deployment
-
-To build and run the Docker image manually:
-
-```bash
-# Build
-docker build -t joseleon97/sofkabacktest .
-
-# Run
-docker run -p 8080:8080 \
-  -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/luchotestdb \
-  -e SPRING_DATASOURCE_USERNAME=postgres \
-  -e SPRING_DATASOURCE_PASSWORD=postgres \
-  -e SPRING_SECURITY_USER_NAME=admin \
-  -e SPRING_SECURITY_USER_PASSWORD=admin \
-  joseleon97/sofkabacktest
-```
-#### Run remote image Docker Hub
+### Option 1: Run as Monolith
+To run the monolithic version of the application using Docker, execute the following command:
 
 ```bash
 docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/sofkabacktest:latest
 ```
 
-## 📄 License
+### Option 2: Run as Microservices
+To run the application as a set of microservices using Docker Compose, execute:
 
-This project is licensed under the MIT License.
+```bash
+docker-compose up
+```
+
+### Project Details
+
+Each project contains its own `README.md` file with specific instructions on how to build and run the application.
+
+1.  **Monolito:** See [monolito/README.md](./monolito/README.md)
+2.  **Microservice Clientes:** See [microservice-clientes/README.md](./microservice-clientes/README.md)
+3.  **Microservice Cuentas:** See [microservice-cuentas/README.md](./microservice-cuentas/README.md)
+
+## 🐳 infrastructure
+
+The repository includes a `db` folder containing PostgreSQL configuration and data persistence structures, typically used by the docker-compose setups within the projects.
