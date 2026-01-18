@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.sofka.luchotest.dto.ClienteCreateDTO;
+import co.com.sofka.luchotest.dto.ClienteResponseDTO;
 import co.com.sofka.luchotest.mapper.ClienteMapper;
 import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
 import co.com.sofka.luchotest.service.interfaces.IClienteService;
@@ -27,31 +28,31 @@ public class ClienteController {
     private final IClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<ClienteEntity> crearCliente(@Valid @RequestBody ClienteCreateDTO cliente) {
+    public ResponseEntity<ClienteResponseDTO> crearCliente(@Valid @RequestBody ClienteCreateDTO cliente) {
 
         ClienteEntity clienteEntity = clienteMapper.toEntity(cliente);
 
         ClienteEntity clienteCreado = clienteService.crearCliente(clienteEntity);
 
-        return ResponseEntity.ok(clienteCreado);
+        return ResponseEntity.ok(clienteMapper.toDto(clienteCreado));
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteEntity> obtenerClientePorId(@PathVariable Long id) {
+    public ResponseEntity<ClienteResponseDTO> obtenerClientePorId(@PathVariable Long id) {
         ClienteEntity clienteEntity = clienteService.getClienteById(id);
-        return ResponseEntity.ok(clienteEntity);
+        return ResponseEntity.ok(clienteMapper.toDto(clienteEntity));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteEntity> actualizarCliente(@PathVariable Long id, @Valid @RequestBody ClienteCreateDTO cliente) {
+    public ResponseEntity<ClienteResponseDTO> actualizarCliente(@PathVariable Long id, @Valid @RequestBody ClienteCreateDTO cliente) {
 
         ClienteEntity clienteActualizado = clienteMapper.toEntity(cliente);
         clienteActualizado.setId(id);
 
         ClienteEntity clienteGuardado = clienteService.updateCliente(clienteActualizado);
 
-        return ResponseEntity.ok(clienteGuardado);
+        return ResponseEntity.ok(clienteMapper.toDto(clienteGuardado));
     }
 
     @DeleteMapping("/{id}")
