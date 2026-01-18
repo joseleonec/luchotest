@@ -25,6 +25,7 @@ services:
   # Spring Boot Application
   app:
     build: .
+    image: joseleon97/msclientes:latest
     container_name: msclientes-app
     environment:
       # Database configuration
