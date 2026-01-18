@@ -128,7 +128,7 @@ This will build the app image and run it alongside the database.
 docker-compose up --build
 ```
 
-The application will be accessible at `http://localhost:8080`.
+The application will be accessible at `http://localhost:8081`.
 
 ## 🧪 Testing
 
@@ -165,7 +165,7 @@ To build and run the Docker image manually:
 docker build -t joseleon97/sofkabacktest .
 
 # Run
-docker run -p 8080:8080 \
+docker run -p 8081:8081 \
   -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/msclientesdb \
   -e SPRING_DATASOURCE_USERNAME=postgres \
   -e SPRING_DATASOURCE_PASSWORD=postgres \
@@ -176,7 +176,7 @@ docker run -p 8080:8080 \
 #### Run remote image Docker Hub
 
 ```bash
-docker run -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/sofkabacktest:latest
+docker run -p 8081:8081 -e SPRING_DATASOURCE_URL=jdbc:postgresql://ep-gentle-leaf-aho23oym-pooler.c-3.us-east-1.aws.neon.tech/neondb -e SPRING_DATASOURCE_USERNAME=neondb_owner -e SPRING_DATASOURCE_PASSWORD=npg_MGfbezui9J5t -e SPRING_SECURITY_USER_NAME=admin -e SPRING_SECURITY_USER_PASSWORD=admin joseleon97/sofkabacktest:latest
 ```
 
 ## 📄 License

@@ -26,8 +26,8 @@ docker-compose logs -f app
 
 ### 2. Access the Application
 
-- Application: http://localhost:8080
-- Health Check: http://localhost:8080/actuator/health
+- Application: http://localhost:8081
+- Health Check: http://localhost:8081/actuator/health
 - Database: localhost:5432
 
 ### 3. Default Credentials
@@ -51,7 +51,7 @@ docker-compose logs -f app
 docker build -t joseleon97/sofkabacktest .
 
 # Run the container (requires external PostgreSQL)
-docker run -p 8080:8080 \
+docker run -p 8081:8081 \
   -e SPRING_DATASOURCE_URL=jdbc:postgresql://your-db-host:5432/msclientesdb \
   -e SPRING_DATASOURCE_USERNAME=your-username \
   -e SPRING_DATASOURCE_PASSWORD=your-password \
@@ -144,7 +144,7 @@ docker-compose up app
 3. Check if database `msclientesdb` exists
 
 ### Port conflicts
-If ports 8080 or 5432 are already in use, modify the `docker-compose.yml` file:
+If ports 8081 or 5432 are already in use, modify the `docker-compose.yml` file:
 
 ```yaml
 services:
@@ -153,7 +153,7 @@ services:
       - "5433:5432"  # Use port 5433 instead
   app:
     ports:
-      - "8081:8080"  # Use port 8081 instead
+      - "8081:8081"  # Use port 8081 instead
 ```
 
 ## Health Monitoring
@@ -166,7 +166,7 @@ The application includes built-in health checks:
 
 ```bash
 # Check application health
-curl http://localhost:8080/actuator/health
+curl http://localhost:8081/actuator/health
 
 # Check Docker container health
 docker inspect --format='{{.State.Health.Status}}' msclientes-app
