@@ -37,6 +37,7 @@ public class MovimientoService implements IMovimientoService {
 
         if (movimientoEntity.getTipoMovimiento().equals(TipoMovimientoEnum.RETIRO.name())) {
             valorMovimiento = valorMovimiento.negate();
+            movimientoEntity.setValor(valorMovimiento);
         }
 
         var nuevoSaldo = saldoAnterior.add(valorMovimiento);
