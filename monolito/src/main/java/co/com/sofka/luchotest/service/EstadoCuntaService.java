@@ -27,7 +27,7 @@ public class EstadoCuntaService implements IEstadoCuentaService {
     @Override
     public List<EstadoCuentaDTO> generarEstadoCuenta(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin) {
 
-        var cuentasCliente = cuentaService.getCuentasByClienteId(clienteId);
+        List<CuentaEntity> cuentasCliente = cuentaService.getCuentasByClienteId(clienteId);
         var estadosCuentaDTO = new ArrayList<EstadoCuentaDTO>();
 
         for (CuentaEntity cuenta : cuentasCliente) {
