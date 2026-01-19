@@ -34,19 +34,28 @@ public class ClienteService implements IClienteService {
         }
         return clienteRepository.save(clienteEntity);
     }
-@Override
-    
+
+    @Override
     public ClienteEntity getClienteById(Long id) {
         return clienteRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Cliente no encontrado con id: " + id)
         );
     }
-@Override
-    
+
+    @Override
     public void deleteCliente(Long id) {
         if (!clienteRepository.existsById(id)) {
             throw new NoSuchElementException("Cliente no encontrado con id: " + id);
         }
         clienteRepository.deleteById(id);
+    }
+
+    @Override
+    public String obtenerNombreClientePorId(Long clienteId) {
+        
+        ClienteEntity cliente = clienteRepository.findById(clienteId).orElseThrow(
+                () -> new NoSuchElementException("Cliente no encontrado con id: " + clienteId)
+        );
+        return cliente.getNombre();
     }
 }

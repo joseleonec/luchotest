@@ -11,4 +11,6 @@ public interface IClienteService {
     ClienteEntity getClienteById(Long id);
 
     void deleteCliente(Long id);
+
+    public String obtenerNombreClientePorId(Long clienteId);
 }

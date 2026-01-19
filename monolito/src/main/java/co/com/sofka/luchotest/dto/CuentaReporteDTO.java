@@ -10,6 +10,8 @@ public record CuentaReporteDTO(
     String tipoCuenta,
 
     String numeroCuenta,
+
+    String nombreCliente,
     
     BigDecimal saldoDisponible,
 
