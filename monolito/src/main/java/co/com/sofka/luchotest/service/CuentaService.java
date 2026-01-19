@@ -18,6 +18,11 @@ public class CuentaService implements ICuentaService {
     private final CuentaRepository cuentaRepository;
 
     @Override
+    public List<CuentaEntity> getAllCuentas() {
+        return cuentaRepository.findAll();
+    }
+
+    @Override
     public CuentaEntity crearCuenta(CuentaEntity cuentaEntity) {
         // Inicializar saldo disponible igual al saldo inicial si no está establecido
         if (cuentaEntity.getSaldoDisponible() == null) {

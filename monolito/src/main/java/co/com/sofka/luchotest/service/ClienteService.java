@@ -1,5 +1,6 @@
 package co.com.sofka.luchotest.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +16,11 @@ import lombok.AllArgsConstructor;
 public class ClienteService implements IClienteService {
 
     private final ClienteRepository clienteRepository;
+
+    @Override
+    public List<ClienteEntity> getAllClientes() {
+        return clienteRepository.findAll();
+    }
 
     @Override
     public ClienteEntity crearCliente(ClienteEntity clienteEntity) {

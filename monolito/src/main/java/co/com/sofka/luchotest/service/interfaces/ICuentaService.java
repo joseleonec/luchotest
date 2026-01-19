@@ -7,6 +7,8 @@ import co.com.sofka.luchotest.persistence.entity.CuentaEntity;
 
 public interface ICuentaService {
 
+    List<CuentaEntity> getAllCuentas();
+
     CuentaEntity crearCuenta(CuentaEntity cuentaEntity);
 
     CuentaEntity updateCuenta(CuentaEntity cuentaEntity);

@@ -1,5 +1,7 @@
 package co.com.sofka.luchotest.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,12 @@ public class ClienteController {
 
         return ResponseEntity.ok(clienteMapper.toDto(clienteCreado));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ClienteResponseDTO>> obtenerTodosLosClientes() {
+        List<ClienteEntity> clientes = clienteService.getAllClientes();
+        return ResponseEntity.ok(clientes.stream().map(clienteMapper::toDto).toList());
     }
 
     @GetMapping("/{id}")

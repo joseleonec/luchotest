@@ -1,5 +1,7 @@
 package co.com.sofka.luchotest.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,12 @@ public class CuentaController {
         var cuentaDTO = cuentaMapper.toDTO(cuentaCreada);
 
         return ResponseEntity.ok(cuentaDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CuentaDTO>> obtenerTodasLasCuentas() {
+        var cuentas = cuentaService.getAllCuentas();
+        return ResponseEntity.ok(cuentas.stream().map(cuentaMapper::toDTO).toList());
     }
 
     @GetMapping("/{id}")
