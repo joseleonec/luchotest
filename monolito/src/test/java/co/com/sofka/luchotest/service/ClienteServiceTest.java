@@ -19,9 +19,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import co.com.sofka.luchotest.exceptions.ResourceAlreadyExistsException;
-import co.com.sofka.luchotest.persistence.entity.ClienteEntity;
-import co.com.sofka.luchotest.persistence.repositroy.ClienteRepository;
+import co.com.sofka.luchotest.application.exceptions.ResourceAlreadyExistsException;
+import co.com.sofka.luchotest.infrastructure.adapter.out.persistence.persistence.entity.ClienteEntity;
+import co.com.sofka.luchotest.infrastructure.adapter.out.persistence.persistence.repositroy.ClienteRepository;
+import co.com.sofka.luchotest.infrastructure.adapter.out.service.ClienteService;
 
 @ExtendWith(MockitoExtension.class)
 class ClienteServiceTest {
